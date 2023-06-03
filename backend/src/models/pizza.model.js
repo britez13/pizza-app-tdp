@@ -1,12 +1,8 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../config/db")
+const { Ingrediente } = require("./ingrediente.model")
 
 const Pizza = sequelize.define("Pizza", {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncremet: true
-    },
     nombre: {
         type: DataTypes.STRING,
     },
@@ -16,7 +12,12 @@ const Pizza = sequelize.define("Pizza", {
     estado: {
         type: DataTypes.STRING
     }
+}, {
+    timestamps: false
 })
+
+Pizza.belongsToMany(Ingrediente, { through: "Pizza_Ingredientes" })
+Ingrediente.belongsToMany(Pizza, { through: "Pizza_Ingredientes" })
 
 module.exports = {
     Pizza

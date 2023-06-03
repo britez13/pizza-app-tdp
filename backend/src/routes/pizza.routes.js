@@ -1,5 +1,6 @@
 const { Router } = require("express")
 const { getPizzas, createPizza, updatePizza, deletePizza, getPizza } = require("../controllers/pizza.controller")
+const { protect } = require("../middlewares/protect.middleware")
 
 const router = Router()
 

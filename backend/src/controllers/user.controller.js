@@ -5,6 +5,10 @@ const { createToken } = require("../utils/createToken");
 async function register(req, res) {
   try {
     const { username, password } = req.body;
+
+    console.log("Request body is", req.body);
+
+
     // Buscar si usuario ya existe
     const userExists = await User.findOne({ where: { username: username } });
     console.log(userExists);
@@ -18,7 +22,7 @@ async function register(req, res) {
     const newUser = await User.create({ username, password: hashedPassword });
     const token = createToken(newUser.id);
 
-    res.cookie("jwt", token, { httpOnly: true });
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 10000 * 60 * 60 });
     res.send("register");
   } catch (error) {
     console.log(error.message);
@@ -29,6 +33,8 @@ async function login(req, res) {
   try {
     const { username, password } = req.body;
 
+    console.log("Cookies:", req.cookies);
+
     // Buscar si usuario existe
     const user = await User.findOne({ where: { username } });
 
@@ -37,8 +43,10 @@ async function login(req, res) {
     }
 
     if (user && (await bcrypt.compare(password, user.password))) {
+      console.log(user.id);
       const token = createToken(user.id);
-      res.cookie("jwt", token, { httpOnly: true });
+      console.log(token);
+      res.cookie("jwt", token);
       res.status(200).json(user);
     } else {
       res.status(400).send("Cred inc");

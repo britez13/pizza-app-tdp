@@ -1,8 +1,9 @@
 const { Pizza } = require("../models/pizza.model")
 
 async function getPizzas(req, res) {
+    
     const allPizzas = await Pizza.findAll(); 
-    res.send("your pizzas")
+    res.json(allPizzas)
 } 
 
 async function createPizza(req, res) {
@@ -10,10 +11,11 @@ async function createPizza(req, res) {
 
     try {
         const newPizza = await Pizza.create({ nombre, precio, estado })
+        res.json(newPizza)
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
+        res.send(error.message);
     }
-    res.send("pizza created")
 } 
 
 async function updatePizza(req, res) {
