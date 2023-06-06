@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../config/db")
 const { Ingrediente } = require("./ingrediente.model")
+const { PizzaIngrediente } = require("./pizza_ingrediente.model")
 
 const Pizza = sequelize.define("Pizza", {
     nombre: {
@@ -16,8 +17,8 @@ const Pizza = sequelize.define("Pizza", {
     timestamps: false
 })
 
-Pizza.belongsToMany(Ingrediente, { through: "Pizza_Ingredientes" })
-Ingrediente.belongsToMany(Pizza, { through: "Pizza_Ingredientes" })
+Pizza.belongsToMany(Ingrediente, { through: PizzaIngrediente })
+Ingrediente.belongsToMany(Pizza, { through: PizzaIngrediente })
 
 module.exports = {
     Pizza
