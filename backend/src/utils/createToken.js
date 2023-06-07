@@ -1,13 +1,19 @@
 const jwt = require("jsonwebtoken")
 
-const JWT_SECRET = "secret"
 
-function createToken(id) {
-    return jwt.sign({id}, JWT_SECRET, {
-        expiresIn: "1h"
+function createAccessToken(id) {
+    return jwt.sign({id}, process.env.ACCESS_SECRET_JWT, {
+        expiresIn: "6h"
+    })
+}
+
+function createRefreshToken(id) {
+    return jwt.sign({id}, process.env.REFRESH_SECRET_JWT, {
+        expiresIn: "6d"
     })
 }
 
 module.exports = {
-    createToken
+    createAccessToken,
+    createRefreshToken
 }

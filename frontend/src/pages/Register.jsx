@@ -54,8 +54,14 @@ export default function SignInSide() {
         },
       });
 
-      if (res.status === 201) navigate("/");
+      if (res.status === 201) {
+        const { accessToken, refreshToken } = res.data
+        localStorage.setItem("accessToken", JSON.stringify(accessToken))
+        localStorage.setItem("refreshToken", JSON.stringify(refreshToken))
+        navigate("/")
+      };
     } catch (error) {
+      alert(error.message)
       console.log(error);
     }
   };
