@@ -5,12 +5,19 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { GlobalStateContext } from "../contexts/globalStateContext"
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 
 function Navbar() {
+
+  const [state, dispatch] = useContext(GlobalStateContext)
+
+  // useEffect(() => {
+  //   console.log(state);
+  // }, [state.pizzas, state.auth, state.ingredientes])
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="sticky">
@@ -20,11 +27,13 @@ function Navbar() {
             Pizza App
           </Typography>
           </Link>
-          <Box>
+          {
+            state.auth && (<Box>
             <Link sx={{ color: "white"}} component={RouterLink} to="/ingredientes">Ingredientes</Link>
             <Link sx={{ color: "white", ml:1}} component={RouterLink} to="/Pizzas">Pizzas</Link>
-          </Box>
-          <Button color="inherit">Login</Button>
+          </Box>)
+          }
+          { state.auth ? <Button color="inherit">Logout</Button> : <Button color="inherit">Login</Button>} 
         </Toolbar>
       </AppBar>
     </Box>

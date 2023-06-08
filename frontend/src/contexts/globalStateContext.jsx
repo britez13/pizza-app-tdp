@@ -8,7 +8,7 @@ const globalInitialState = {
 
 export const GlobalStateContext = createContext(null)
 
-export function StateContextProvider ({children}) {
+export default function StateContextProvider ({children}) {
 
     const [state, dispatch] = useReducer(reducer, globalInitialState)
 
@@ -20,6 +20,7 @@ export function StateContextProvider ({children}) {
 }
 
 function reducer(state, action) {
+    // console.log(action)
     switch (action.type) {
         case "AUTH": {
             return {
@@ -28,12 +29,12 @@ function reducer(state, action) {
         }
         case "FETCH_ALL_PIZZAS": {
             return {
-                ...state, pizzas: [action.payload]
+                ...state, pizzas: action?.payload
             }
         }
         case "FETCH_ALL_INGREDIENTES": {
             return {
-                ...state, pizzas: [action.payload]
+                ...state, ingredientes: action?.payload
             }
         }
         case "ADD_PIZZA": {
@@ -41,10 +42,27 @@ function reducer(state, action) {
                 ...state, pizzas: [...state.pizzas, action.payload]
             }
         }
-        case "ADD_INGREDIENTES": {
+        case "ADD_INGREDIENTE": {
+            console.log(action.payload);
             return {
-                ...state, pizzas: [...state.ingredientes, action.payload]
+                ...state, ingredientes: [...state.ingredientes, action.payload]
             }
+        }
+        case "UPDATE_INGREDIENTE": {
+            const newState = state.ingredientes.map(item => ( item.id === action.payload.id ? action.payload : item))
+            console.log(newState);
+            return {
+                ...state, ingredientes: [...newState]
+            }
+        }
+        case "DELETE_INGREDIENTE": {
+            const newState = state.ingredientes.filter(item => ( item.id !== action.payload))
+            return {
+                ...state, ingredientes: [...newState]
+            }
+        }
+        default: {
+            throw Error('Unknown action: ' + action.type);
         }
     }   
 }

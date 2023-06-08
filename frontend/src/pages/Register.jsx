@@ -61,7 +61,7 @@ export default function SignInSide() {
         navigate("/")
       };
     } catch (error) {
-      alert(error.message)
+      alert(error.response?.data.message || "No se pudo procesar. Intente de nuevo")
       console.log(error);
     }
   };

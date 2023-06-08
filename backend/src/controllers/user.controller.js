@@ -52,7 +52,7 @@ async function login(req, res) {
     if (user && (await bcrypt.compare(password, user.password))) {
       const accessToken = createAccessToken(user.id);
       const refreshToken = createRefreshToken(user.id);
-      res.status(201).json({ accessToken, refreshToken });
+      res.status(200).json({ accessToken, refreshToken });
     } else {
       return res.status(401).json({ message: "Credenciales incorrectos" });
     }
@@ -60,7 +60,6 @@ async function login(req, res) {
     return res
       .status(500)
       .json({ message: "No se pudo loguear. Por favor, intente de nuevo" });
-    console.log(error);
   }
 }
 
@@ -74,7 +73,7 @@ async function refreshToken(req, res) {
     );
     if (decodedJWT) {
       const accessToken = createAccessToken(decodedJWT.id);
-      return res.json({accessToken});
+      return res.status(200).json({accessToken});
     } 
     res.json({ message: "Token incorrecto o expirado" })
   } catch (error) {
