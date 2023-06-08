@@ -48,11 +48,23 @@ function reducer(state, action) {
                 ...state, ingredientes: [...state.ingredientes, action.payload]
             }
         }
+        case "UPDATE_PIZZA": {
+            const newState = state.pizzas.map(item => ( item.id === action.payload.id ? action.payload : item))
+            return {
+                ...state, pizzas: [...newState]
+            }
+        }
         case "UPDATE_INGREDIENTE": {
             const newState = state.ingredientes.map(item => ( item.id === action.payload.id ? action.payload : item))
             console.log(newState);
             return {
                 ...state, ingredientes: [...newState]
+            }
+        }
+        case "DELETE_PIZZA": {
+            const newState = state.pizzas.filter(item => ( item.id !== action.payload))
+            return {
+                ...state, pizzas: [...newState]
             }
         }
         case "DELETE_INGREDIENTE": {

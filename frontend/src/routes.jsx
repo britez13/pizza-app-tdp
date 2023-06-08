@@ -5,7 +5,8 @@ import Register from "./pages/Register.jsx"
 import Login from "./pages/Login.jsx"
 import PizzaItem from "./pages/PizzaItem.jsx"
 import Ingredientes from './pages/Ingredientes.jsx';
-import { Pizzas } from './pages/Pizzas.jsx';
+import Pizzas from './pages/Pizzas.jsx';
+import PizzaIngredients from "./pages/PizzaIngredient";
 
 // Rutas y sus páginas/componentes a renderizar
 export const router = createBrowserRouter([
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         {
           path: "pizzas",
           element: <Pizzas />,
+        },
+        {
+          path: "pizza_ingredient",
+          element: <PizzaIngredients />,
         },
       ]
     },

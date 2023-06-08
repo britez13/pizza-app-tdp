@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { GlobalStateContext } from "../contexts/globalStateContext"
 import { useContext, useEffect } from 'react';
-import { Link } from '@mui/material';
+import { Link, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 
@@ -28,10 +28,11 @@ function Navbar() {
           </Typography>
           </Link>
           {
-            state.auth && (<Box>
-            <Link sx={{ color: "white"}} component={RouterLink} to="/ingredientes">Ingredientes</Link>
-            <Link sx={{ color: "white", ml:1}} component={RouterLink} to="/Pizzas">Pizzas</Link>
-          </Box>)
+            state.auth && (<Stack >
+            <Link sx={{ color: "white"}} component={RouterLink} to="/ingredientes">Mod. Ingr.</Link>
+            <Link sx={{ color: "white"}} component={RouterLink} to="/pizzas">Crear/Editar Pizzas</Link>
+            <Link sx={{ color: "white"}} component={RouterLink} to="/pizza_ingredient">Agregar/Eliminar Ingr. a Pizzas</Link>
+          </Stack>)
           }
           { state.auth ? <Button color="inherit">Logout</Button> : <Button color="inherit">Login</Button>} 
         </Toolbar>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, ListItem, MenuItem, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 
 function PizzaItem() {
@@ -16,19 +16,18 @@ function PizzaItem() {
 
   const StyledMedia = styled(CardMedia)({
     height: 0,
-    paddingTop: "56.25%", // 16:9 aspect ratio
+    paddingTop: "56.25%",
   });
 
   const StyledContent = styled(CardContent)({
-    textAlign: "center",
+    // textAlign: "center",
   });
 
   useEffect(() => {
     async function fetctPizza() {
       const res = await axios.get(`pizzas/${id}`);
-      // console.log(res.data);
+      console.log(res.data);
       setPizza(res.data[0]);
-      // console.log(res);
     }
     fetctPizza();
   }, []);
@@ -49,13 +48,9 @@ function PizzaItem() {
           Estado: {pizza.estado}
         </Typography>
         <Typography variant="body1" color="textSecondary">
-          Ingredientes:
+          Ingredientes: <span>{pizza.Ingredientes.map(i => i.nombre).join(", ")}</span>
         </Typography>
-        {/* <ul>
-          {pizza.Ingredientes?.map((ingrediente, index) => (
-            <li key={index}>{ingrediente}</li>
-          ))}
-        </ul> */}
+        
       </StyledContent>
     </StyledCard>
   );

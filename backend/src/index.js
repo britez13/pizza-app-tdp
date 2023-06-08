@@ -1,11 +1,11 @@
 const express = require("express");
 // const cookieParser = require("cookie-parser")
 const cors = require("cors")
-const dotenv = require("dotenv")
+const dotenv = require("dotenv").config()
+
 const sequelize = require("./config/db");
 
-// Dotenv para usar variables de entorno
-dotenv.config()
+
 
 // Inicializa express app
 const app = express();
@@ -26,6 +26,7 @@ app.use(express.json())
 app.use(require("./routes/user.routes"));
 app.use(require("./routes/pizza.routes"))
 app.use(require("./routes/ingrediente.routes"))
+app.use(require("./routes/pizza_ingrediente.routes"))
 
 // app.get("/set-cookies", (req, res) => {
 //   res.cookie('testCookie', 'Hello Darkness!', { httpOnly: true});
